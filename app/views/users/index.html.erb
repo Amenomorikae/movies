@@ -1,0 +1,55 @@
+<div class="container">
+ <div class="row">
+	 <div class="col-xs-3">
+			<h1>User info</h1>
+			<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg',fallback: "no_image.jpg" %>
+			<table>
+					<tr>
+						<th>name</th>
+						<td><%= @user.name %></td>
+						<th>introduction</th>
+						<td><%= @user.introduction %></td>
+					</tr>
+			</table>
+			<%= link_to "edit", edit_user_path(@user) %>
+
+			<h1>New movie</h1>
+			 <div class="row">
+				 <%= form_for(@movie) do |f| %>
+				   <div>title</div>
+				   <%= f.text_field :title,class:"col-xs-12" %>
+
+				   <div>opinion</div>
+				   <%= f.text_area :body,class:"col-xs-12" %>
+
+				   <%= f.submit 'Create Book',class:"col-xs-12" %>
+				 <% end %>
+			</div>
+		</div>
+    <div class="col-xs-9">
+			 <h1>Users</h1>
+			 <table class="table">
+						 <thead>
+							 <tr>
+								 <th>image</th>
+								 <th>name</th>
+								 <th></th>
+							 </tr>
+						 </thead>
+						 <tbody>
+							 <% @users.each do |user| %>
+							 <tr>
+								 <td>
+									 <%= link_to user_path(user) do %>
+										 <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg",size: "50x50" %>
+									 <% end %>
+								 </td>
+								 <td><%= user.name %></td>
+								 <td><%= link_to "Show", user_path(user) %></td>
+							 </tr>
+							 <% end %>
+						 </tbody>
+				</table>
+		 </div>
+	</div>
+</div>

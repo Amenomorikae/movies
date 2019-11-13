@@ -1,0 +1,73 @@
+<div class="container">
+  <p id="notice"><%=  notice %></p>
+    <% if @movie.errors.any? %>
+      <div class="error_explanation">
+          <h2><%= @movie.errors.count %>errors prohibited this obj from being saved:</h2>
+        <ul>
+          <% @movie.errors.full_messages.each do |message| %>
+            <li><%=  message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <div class="row">
+      <div class="col-xs-3">
+        <h1>User info</h1>
+          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg',fallback: "no_image.jpg" %>
+          <table>
+          		<tr>
+          			<th>name</th>
+          			<td><%= @user.name %></td>
+          			<th>introduction</th>
+          			<td><%= @user.introduction %></td>
+          		</tr>
+          </table>
+　　　　　　<div class="row">
+          　<%= link_to edit_user_path(@user) do %>
+              <button class="col-xs-12 btn btn-default" aria-label="Center Align" type="button" >
+               <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+               </button>
+            <% end %>
+　　　　　　</div>
+          <h1>New movie</h1>
+           <div class="row">
+             <%= form_for(@movie) do |f| %>
+               <div>title</div>
+               <%= f.text_field :title, class:"col-xs-12" %>
+
+               <div>opinion</div>
+               <%= f.text_area :body, class:"col-xs-12" %>
+
+               <%= f.submit 'Create Book', class:"col-xs-12" %>
+             <% end %>
+           </div>
+       </div>
+    <div class="col-xs-9">
+       <h1>Movie detail</h1>
+       <table class="table">
+      	 <tbody>
+      		 <tr>
+      			 <td scope="row">
+      				 <%= link_to user_path(@movie.user) do %>
+      					  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg',fallback: "no_image.jpg" %>
+      						<%= link_to @movie.user.name, user_path(@movie.user) %>
+      				 <% end %>
+      			 </td>
+      			 <td scope="row"><%= @movie.title %></td>
+      			 <td scope="row"><%= @movie.body %></td>
+      			 <td scope="row">
+      			    <% if @movie.user == current_user %>
+      				  <%= link_to "Edit", edit_movie_path(@movie.id) %>
+      			    <% end %>
+      			 </td>
+      			 <td scope="row">
+      			    <% if @movie.user == current_user %>
+      				  <%= link_to "Destroy", movie_path(@movie), method: :delete %>
+      			    <% end %>
+      			 </td>
+      			</tr>
+      	 </tbody>
+      	</table>
+      </div>
+  </div>
+</div>

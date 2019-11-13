@@ -1,0 +1,22 @@
+<div class="container">
+  <% if @movie.errors.any? %>
+    <div class="error_explanation">
+        <h2><%= @movie.errors.count %>errors prohibited this obj from being saved:</h2>
+      <ul>
+        <% @movie.errors.full_messages.each do |message| %>
+          <li><%=  message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h1>Editing movie</h1>
+  <%= form_for(@movie) do |f| %>
+    <div>title</div>
+    <%= f.text_field :title %>
+
+    <div>opinion</div>
+    <%= f.text_area :body %>
+
+    <%= f.submit %>
+  <% end %>
+</div>
